@@ -1,3 +1,3 @@
 FROM java:8
-MAINTEINER lubennardis
+MAINTAINER lubennardis
 CMD java -version
