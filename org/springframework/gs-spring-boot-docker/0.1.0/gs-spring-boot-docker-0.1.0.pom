@@ -50,7 +50,36 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 			
-			
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+					<artifactId>maven-replacer-plugin</artifactId>
+					<version>1.4.0</version>
+					 
+					<executions>                
+						<execution>
+							<phase>process-sources</phase>
+							<goals>
+								<goal>replace</goal>
+							</goals>
+						</execution>
+					</executions>
+					 
+					
+					<configuration>
+						<file>/src/docker/dockerfileTemplate</file>
+						<outputFile>/src/docker/dockerfile</outputFile>
+						<replacements>
+							<replacement>
+								<token>@nome_jar@</token>
+								<value>gs-spring-boot-docker</value>
+							</replacement>
+							<replacement>
+								<token>@version@</token>
+								<value>${project.version}.jar</value>
+							</replacement>
+						</replacements>                        
+					</configuration>
+			  </plugin>
 			
 			
 			
@@ -82,23 +111,32 @@
 					<merge>true</merge>                                        <!-- don't delete old artifacts -->
 					<repositoryName>dockerAutomationTest</repositoryName>      <!-- github repo name -->
 					<repositoryOwner>lbennardis</repositoryOwner>    <!-- github username  -->
-					<!--
-					<author>luigi</author>
-					<committer>luigi</committer>
-					-->
+					
 				</configuration>
 				<executions>
 				  <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-				  <execution>
+				   
+					<execution>
+					
 					<goals>
 					  <goal>site</goal>
 					</goals>
 					<phase>deploy</phase>
-				  </execution>
+					</execution>
+					 
+					
+					
 				</executions>
+				
+				
 			</plugin>
 		
+		
         </plugins>
+		
+		
+		
+		
     </build>
 
 </project>
