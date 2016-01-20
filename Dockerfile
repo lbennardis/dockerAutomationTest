@@ -1,7 +1,35 @@
-FROM java:8
-MAINTAINER l.bennardis@email.it
-VOLUME /tmp
-RUN mkdir /temp
-RUN git clone -b mvn-repo https://github.com/lbennardis/dockerAutomationTest.git /temp 
-RUN bash -c 'touch /temp/org/springframework/gs-spring-boot-docker/0.1.0/gs-spring-boot-docker-0.1.0.jar'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/temp/org/springframework/gs-spring-boot-docker/0.1.0/gs-spring-boot-docker-0.1.0.jar"] 
+FROM ubuntu:trusty
+MAINTAINER Luigi Bennardis <l.bennardis@email.it> 
+
+# Add MySQL configuration
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
+
+RUN apt-get update && \
+    apt-get -yq install mysql-server-5.5 pwgen && \ 
+    rm -rf /var/lib/apt/lists/* && \
+    rm /etc/mysql/conf.d/mysqld_safe_syslog.cnf && \
+    if [ ! -f /usr/share/mysql/my-default.cnf ] ; then cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf; fi && \
+    mysql_install_db > /dev/null 2>&1 && \
+    touch /var/lib/mysql/.EMPTY_DB
+
+# Add MySQL scripts
+ADD import_sql.sh /import_sql.sh
+ADD run.sh /run.sh
+
+ENV MYSQL_USER=admin \
+    MYSQL_PASS=**Random** \
+    ON_CREATE_DB=**False** \
+    REPLICATION_MASTER=**False** \
+    REPLICATION_SLAVE=**False** \
+    REPLICATION_USER=replica \
+    REPLICATION_PASS=replica \
+    ON_CREATE_DB=**False**
+
+# Add VOLUMEs to allow backup of config and databases
+VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+# Add permission
+RUN sed -e 's/user.=.mysql/user=root/' -i /etc/mysql/my.cnf
+
+EXPOSE 3306
+CMD ["/run.sh"]
