@@ -77,19 +77,18 @@
 					<artifactId>maven-replacer-plugin</artifactId>
 					<version>1.4.0</version>
 									 
-					<!-- <executions>                
+					 <executions>                
 						<execution>
-							<id>pp</id>
 							<phase>process-sources</phase>
 							<goals>
 								<goal>replace</goal>
 							</goals>
 						</execution>
-					</executions> -->
+					</executions> 
 					 
 					<configuration>
-						<file>/src/docker/dockerfileTemplate</file>
-						<outputFile>/src/docker/dockerfile</outputFile>
+						<file>/src/main/docker/dockerfileTemplate</file>
+						<outputFile>/src/main/docker/dockerfile</outputFile>
 						<replacements>
 							<replacement>
 								<token>@nome_jar@</token>
