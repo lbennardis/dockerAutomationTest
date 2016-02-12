@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>rest-backing-services</groupId>
+  <artifactId>rest-backing-services</artifactId>
+  <versioning>
+    <release>1.2.1.RELEASE</release>
+    <versions>
+      <version>1.2.1.RELEASE</version>
+    </versions>
+    <lastUpdated>20160212123338</lastUpdated>
+  </versioning>
+</metadata>
