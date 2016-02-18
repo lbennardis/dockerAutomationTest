@@ -86,7 +86,7 @@
 						 
 							<configuration>
 								<file>/var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins/src/main/docker/dockerfileTemplate</file>
-						
+								<!-- wkspace /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins -->
 								<outputFile>/var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins/src/main/docker/dockerfileapp</outputFile>
 								<replacements>
 										<replacement>
