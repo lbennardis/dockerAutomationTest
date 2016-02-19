@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>01_spring_boot_rest_backing_services</groupId>
+  <artifactId>01_spring_boot_rest_backing_services</artifactId>
+  <versioning>
+    <release>1.2.1.RELEASE</release>
+    <versions>
+      <version>1.2.1.RELEASE</version>
+    </versions>
+    <lastUpdated>20160219092748</lastUpdated>
+  </versioning>
+</metadata>
