@@ -39,23 +39,45 @@
 	
     <dependencies>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+          
+        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901-1.jdbc4</version>
         </dependency>
+        
+        
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+        
+          
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-
+		 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -65,7 +87,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
+		 
     </dependencies>
 
 <build>
@@ -89,8 +111,10 @@
 								<configuration>
 								<!-- /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins/ -->
 									<file>src/main/docker/dockerfileTemplate</file>
-									<!-- wkspace /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins -->
-									<outputFile>/var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/buildjenkins/mvn-repo/Dockerfile</outputFile>
+									<!-- wkspace /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/wkspacejenkins 
+									build -> /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/buildjenkins/mvn-repo
+									-->
+									<outputFile>${PATH_TO_REPO}/Dockerfile</outputFile>
 									<replacements>
 											<replacement>
 												<token>@jar_name@</token>
@@ -119,8 +143,11 @@
 					<configuration> 
 						<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
 						<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
-						<outputDirectory>/var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/buildjenkins/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+						<outputDirectory>${PATH_TO_REPO}</outputDirectory> <!-- matches distribution management repository url above -->
 						<!-- 
+						
+						PATH_TO_REPO /var/lib/openshift/566ae57d0c1e6629760000cd/app-root/data/buildjenkins/mvn-repo
+						
 						IN LOCALE
 						<outputDirectory>
 						${project.build.directory}/mvn-repo
